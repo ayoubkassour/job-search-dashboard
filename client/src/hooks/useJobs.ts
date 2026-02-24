@@ -4,6 +4,15 @@ import { seedJobs } from "@/data/seed-jobs";
 
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
+async function fetchWithRetry(url: string, options?: RequestInit, retries = 2): Promise<Response> {
+  for (let i = 0; i <= retries; i++) {
+    const res = await fetch(url, options);
+    if (res.ok || res.status < 500 || i === retries) return res;
+    await new Promise((r) => setTimeout(r, 3000));
+  }
+  return fetch(url, options);
+}
+
 const STATUS_PRIORITY: Record<string, number> = {
   Offer: 0,
   Interview: 1,
@@ -34,7 +43,7 @@ export function useJobs() {
       if (sourceFilter !== "All") params.set("source", sourceFilter);
       params.set("sort", "discovered");
 
-      const res = await fetch(`${API_BASE}/jobs?${params}`);
+      const res = await fetchWithRetry(`${API_BASE}/jobs?${params}`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       setJobs(data);
@@ -145,7 +154,7 @@ export function useStats() {
   });
 
   useEffect(() => {
-    fetch(`${API_BASE}/stats`)
+    fetchWithRetry(`${API_BASE}/stats`)
       .then((r) => r.json())
       .then(setStats)
       .catch(() => {
