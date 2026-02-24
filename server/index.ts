@@ -32,6 +32,20 @@ if (hasSupabase) {
   console.log("[DB] No Supabase credentials — running with in-memory seed data");
 }
 
+const STATUS_PRIORITY: Record<string, number> = {
+  Offer: 0,
+  Interview: 1,
+  Applied: 2,
+  Saved: 3,
+  Rejected: 4,
+};
+
+function sortByStatus<T extends { status: string }>(jobs: T[]): T[] {
+  return jobs.sort(
+    (a, b) => (STATUS_PRIORITY[a.status] ?? 5) - (STATUS_PRIORITY[b.status] ?? 5)
+  );
+}
+
 // In-memory store for when Supabase is not configured
 let memoryJobs: SeedJob[] = [...seedJobs];
 let nextId = Math.max(...memoryJobs.map((j) => j.id)) + 1;
@@ -46,11 +60,9 @@ app.get("/api/jobs", async (req, res) => {
       if (status && status !== "All") query = query.eq("status", status);
       if (source && source !== "All") query = query.eq("source", source);
       if (search) query = query.or(`company.ilike.%${search}%,job_title.ilike.%${search}%`);
-      if (sort === "discovered") query = query.order("discovered_at", { ascending: false });
-      else query = query.order("created_at", { ascending: false });
       const { data, error } = await query;
       if (error) throw error;
-      res.json(data);
+      res.json(sortByStatus(data));
     } else {
       let filtered = [...memoryJobs];
       const { search, status, source } = req.query;
@@ -62,7 +74,7 @@ app.get("/api/jobs", async (req, res) => {
       }
       if (status && status !== "All") filtered = filtered.filter((j) => j.status === status);
       if (source && source !== "All") filtered = filtered.filter((j) => j.source === source);
-      res.json(filtered);
+      res.json(sortByStatus(filtered));
     }
   } catch (err: any) {
     res.status(500).json({ error: err.message });

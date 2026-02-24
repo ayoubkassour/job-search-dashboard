@@ -24,7 +24,7 @@ export const seedJobs: SeedJob[] = [
     recruiter_name: "Sarah Tan", recruiter_linkedin: "https://linkedin.com/in/sarahtan",
     hiring_manager_name: "David Lim", hiring_manager_linkedin: "https://linkedin.com/in/davidlim",
     tailored_resume: "## Tailored Resume for Grab\n\n**Key Highlights:**\n- 7+ years in product management across fintech and payments\n- Led payment gateway integration serving 2M+ users\n- Deep APAC market experience across Singapore, Indonesia, and Malaysia\n- Proven track record in stakeholder management with C-suite executives",
-    status: "Applied", source: "manual", discovered_at: "2026-02-20T08:00:00Z", created_at: "2026-02-20T08:00:00Z", updated_at: "2026-02-20T08:00:00Z",
+    status: "Saved", source: "manual", discovered_at: "2026-02-20T08:00:00Z", created_at: "2026-02-20T08:00:00Z", updated_at: "2026-02-20T08:00:00Z",
   },
   {
     id: 2, company: "Shopee", job_title: "Lead Product Manager - Marketplace",
@@ -33,7 +33,7 @@ export const seedJobs: SeedJob[] = [
     recruiter_name: "Michael Wong", recruiter_linkedin: "https://linkedin.com/in/michaelwong",
     hiring_manager_name: "Lisa Chen", hiring_manager_linkedin: "https://linkedin.com/in/lisachen",
     tailored_resume: "## Tailored Resume for Shopee\n\n**Key Highlights:**\n- Built and scaled marketplace features reaching 5M+ monthly active users\n- Expert in A/B testing and data-driven product decisions\n- Cross-functional leadership across engineering, design, and operations\n- Experience optimizing seller onboarding funnels (40% improvement)",
-    status: "Interview", source: "manual", discovered_at: "2026-02-19T08:00:00Z", created_at: "2026-02-19T08:00:00Z", updated_at: "2026-02-19T08:00:00Z",
+    status: "Saved", source: "manual", discovered_at: "2026-02-19T08:00:00Z", created_at: "2026-02-19T08:00:00Z", updated_at: "2026-02-19T08:00:00Z",
   },
   {
     id: 3, company: "Stripe", job_title: "Product Manager - APAC Expansion",
@@ -69,7 +69,7 @@ export const seedJobs: SeedJob[] = [
     recruiter_name: "Not Found", recruiter_linkedin: "Not Found",
     hiring_manager_name: "Maria Santos", hiring_manager_linkedin: "https://linkedin.com/in/mariasantos",
     tailored_resume: "## Tailored Resume for Revolut\n\n**Key Highlights:**\n- Managed card product lifecycle from issuance to transaction processing\n- Knowledge of PCI-DSS compliance and card scheme regulations\n- Experience with rapid iteration in high-growth fintech\n- User research-driven product development approach",
-    status: "Applied", source: "manual",
+    status: "Saved", source: "manual",
     discovered_at: "2026-02-15T08:00:00Z", created_at: "2026-02-15T08:00:00Z", updated_at: "2026-02-15T08:00:00Z",
   },
   {
@@ -97,7 +97,7 @@ export const seedJobs: SeedJob[] = [
     recruiter_name: "Jennifer Yap", recruiter_linkedin: "https://linkedin.com/in/jenniferyap",
     hiring_manager_name: "Thomas Lau", hiring_manager_linkedin: "https://linkedin.com/in/thomaslau",
     tailored_resume: "## Tailored Resume for Standard Chartered\n\n**Key Highlights:**\n- Led digital transformation initiatives in financial services\n- Platform strategy experience connecting multiple business units\n- Enterprise-grade product management with compliance focus\n- Vendor management and partnership development across APAC",
-    status: "Interview", source: "manual",
+    status: "Saved", source: "manual",
     discovered_at: "2026-02-12T08:00:00Z", created_at: "2026-02-12T08:00:00Z", updated_at: "2026-02-12T08:00:00Z",
   },
   {
@@ -115,7 +115,7 @@ export const seedJobs: SeedJob[] = [
     key_requirements: "5+ years PM, SME lending, credit risk products, marketplace lending, SEA expansion",
     recruiter_name: "Alex Goh", recruiter_linkedin: "https://linkedin.com/in/alexgoh",
     hiring_manager_name: "Priya Sharma", hiring_manager_linkedin: "https://linkedin.com/in/priyasharma",
-    tailored_resume: null, status: "Applied", source: "manual",
+    tailored_resume: null, status: "Saved", source: "manual",
     discovered_at: "2026-02-10T08:00:00Z", created_at: "2026-02-10T08:00:00Z", updated_at: "2026-02-10T08:00:00Z",
   },
   {
@@ -143,7 +143,7 @@ export const seedJobs: SeedJob[] = [
     key_requirements: "5+ years PM, embedded finance, BaaS/APIs, partner integrations, compliance SEA",
     recruiter_name: "Raymond Lim", recruiter_linkedin: "https://linkedin.com/in/raymondlim",
     hiring_manager_name: "Jasmine Ong", hiring_manager_linkedin: "https://linkedin.com/in/jasmineong",
-    tailored_resume: null, status: "Rejected", source: "manual",
+    tailored_resume: null, status: "Saved", source: "manual",
     discovered_at: "2026-02-07T08:00:00Z", created_at: "2026-02-07T08:00:00Z", updated_at: "2026-02-07T08:00:00Z",
   },
   {
@@ -152,7 +152,7 @@ export const seedJobs: SeedJob[] = [
     key_requirements: "4+ years PM, BNPL/consumer lending, merchant partnerships, credit scoring, growth loops",
     recruiter_name: "Not Found", recruiter_linkedin: "Not Found",
     hiring_manager_name: "Not Found", hiring_manager_linkedin: "Not Found",
-    tailored_resume: null, status: "Offer", source: "manual",
+    tailored_resume: null, status: "Saved", source: "manual",
     discovered_at: "2026-02-06T08:00:00Z", created_at: "2026-02-06T08:00:00Z", updated_at: "2026-02-06T08:00:00Z",
   },
 ];

@@ -4,6 +4,20 @@ import { seedJobs } from "@/data/seed-jobs";
 
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
+const STATUS_PRIORITY: Record<string, number> = {
+  Offer: 0,
+  Interview: 1,
+  Applied: 2,
+  Saved: 3,
+  Rejected: 4,
+};
+
+function sortByStatus(jobs: Job[]): Job[] {
+  return [...jobs].sort(
+    (a, b) => (STATUS_PRIORITY[a.status] ?? 5) - (STATUS_PRIORITY[b.status] ?? 5)
+  );
+}
+
 export function useJobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +55,7 @@ export function useJobs() {
       if (sourceFilter !== "All") {
         filtered = filtered.filter((j) => j.source === sourceFilter);
       }
-      setJobs(filtered);
+      setJobs(sortByStatus(filtered));
     } finally {
       setLoading(false);
     }
@@ -60,12 +74,12 @@ export function useJobs() {
       });
       if (!res.ok) throw new Error("Failed to update");
       const updated = await res.json();
-      setJobs((prev) => prev.map((j) => (j.id === id ? updated : j)));
+      setJobs((prev) => sortByStatus(prev.map((j) => (j.id === id ? updated : j))));
       return updated;
     } catch {
       // Optimistic update for offline mode
       setJobs((prev) =>
-        prev.map((j) => (j.id === id ? { ...j, ...updates } : j))
+        sortByStatus(prev.map((j) => (j.id === id ? { ...j, ...updates } : j)))
       );
     }
   };
