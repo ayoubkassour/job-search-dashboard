@@ -7,7 +7,16 @@ import { runJobTracker } from "./services/job-tracker.js";
 import { seedJobs, type SeedJob } from "./seed-jobs.js";
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://job-search-dashboard-i7nqxnqb2-ayoubkassours-projects.vercel.app",
+      /\.vercel\.app$/,
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const supabaseUrl = process.env.SUPABASE_URL || "";
