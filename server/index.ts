@@ -19,8 +19,8 @@ app.use(
 );
 app.use(express.json());
 
-const supabaseUrl = process.env.SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
+const supabaseUrl = (process.env.SUPABASE_URL || "").trim();
+const supabaseKey = (process.env.SUPABASE_ANON_KEY || "").replace(/\s+/g, "");
 
 const hasSupabase = supabaseUrl.length > 0 && supabaseKey.length > 0;
 let supabase: SupabaseClient | null = null;
