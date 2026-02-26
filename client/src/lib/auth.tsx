@@ -6,6 +6,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  newJobsThreshold: string | null;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
@@ -17,18 +18,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [newJobsThreshold, setNewJobsThreshold] = useState<string | null>(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      if (session?.user) {
+        const lastSeen = localStorage.getItem("last_seen_at");
+        setNewJobsThreshold(lastSeen);
+        localStorage.setItem("last_seen_at", new Date().toISOString());
+      }
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        if (event === "SIGNED_IN") {
+          const lastSeen = localStorage.getItem("last_seen_at");
+          setNewJobsThreshold(lastSeen);
+          localStorage.setItem("last_seen_at", new Date().toISOString());
+        }
       }
     );
 
@@ -50,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, loading, newJobsThreshold, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

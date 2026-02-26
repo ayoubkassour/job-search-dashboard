@@ -8,14 +8,21 @@ const statuses = ["Saved", "Applied", "Interview", "Offer", "Rejected"] as const
 interface JobTableProps {
   jobs: Job[];
   selectedId: number | null;
+  newJobsThreshold: string | null;
   onSelect: (job: Job) => void;
   onStatusChange: (id: number, status: string) => void;
   onDelete: (id: number) => void;
 }
 
+function isNewJob(job: Job, threshold: string | null): boolean {
+  if (!threshold) return false;
+  return new Date(job.discovered_at) > new Date(threshold);
+}
+
 export function JobTable({
   jobs,
   selectedId,
+  newJobsThreshold,
   onSelect,
   onStatusChange,
   onDelete,
@@ -53,7 +60,14 @@ export function JobTable({
               )}
             >
               <td className="px-4 py-3">
-                <div className="font-semibold text-slate-100">{job.company}</div>
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-slate-100">{job.company}</span>
+                  {isNewJob(job, newJobsThreshold) && (
+                    <span className="inline-flex items-center rounded bg-emerald-500 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase leading-none text-black tracking-wide">
+                      NEW
+                    </span>
+                  )}
+                </div>
                 <div className="text-xs text-slate-400 font-mono mt-0.5">{job.job_title}</div>
               </td>
               <td className="px-4 py-3">

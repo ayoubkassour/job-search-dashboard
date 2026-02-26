@@ -11,7 +11,7 @@ import { TrackerPanel } from "@/components/TrackerPanel";
 import type { Job } from "@/lib/supabase";
 
 export function Home() {
-  const { signOut } = useAuth();
+  const { signOut, newJobsThreshold } = useAuth();
   const {
     jobs,
     loading,
@@ -102,6 +102,7 @@ export function Home() {
               <JobTable
                 jobs={jobs}
                 selectedId={selectedJob?.id ?? null}
+                newJobsThreshold={newJobsThreshold}
                 onSelect={(job) =>
                   setSelectedJob(selectedJob?.id === job.id ? null : job)
                 }
